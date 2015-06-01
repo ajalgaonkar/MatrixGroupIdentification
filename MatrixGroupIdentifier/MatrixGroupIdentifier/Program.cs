@@ -23,7 +23,7 @@ namespace MatrixGroupIdentifier
         static void Main(string[] args)
         {
             int[,] inputMatrix = new int[,] {{1,1,0,0,1},
-                                             {1,0,0,1,1},
+                                             {1,0,0,1,0},
                                              {1,1,1,1,0}};
             List<elementLocation> allElements = new List<elementLocation>();
 
@@ -61,9 +61,10 @@ namespace MatrixGroupIdentifier
                 while(a !=0)
                 {
                     int tempGroupLength = tempGroupList.Count;
+                    List<elementLocation> swapList = new List<elementLocation>(tempGroupList);
                     if(tempLength < tempGroupLength)
                     {
-                        foreach (var tempEle in tempGroupList)
+                        foreach (var tempEle in swapList)
                         {
                             var adjCells = GetAdjecentLocations(tempEle, heightOfArray, widthOfArray);
                             foreach(var adj in adjCells)
@@ -77,9 +78,15 @@ namespace MatrixGroupIdentifier
                                 }
                             }
                         }
+                        tempLength = tempGroupLength;
+                    }
+                    else
+                    {
+                        a = 0;
                     }
                 }
 
+                #region Alternate Code
                 //foreach(elementLocation l in allElements)
                 //{
                 //    var adjCells = GetAdjecentLocations(l, heightOfArray, widthOfArray);
@@ -117,7 +124,8 @@ namespace MatrixGroupIdentifier
                 //        }
                 //    }
                 //}
-                foreach(elementLocation delLoc in tempGroupList)
+                #endregion Alternate Code
+                foreach (elementLocation delLoc in tempGroupList)
                 {
                     if(allElements.Contains(delLoc))
                     {
