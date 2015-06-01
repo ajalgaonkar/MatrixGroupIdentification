@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Diagnostics;
 using System.Threading.Tasks;
 using System.IO;
 
@@ -28,6 +29,12 @@ namespace MatrixGroupIdentifier
             //int[,] inputMatrix = new int[,] {{1,1,0,0,1},
             //                                 {1,0,1,1,0},
             //                                 {1,1,0,1,0}};
+
+            var stopWatch = new Stopwatch();
+
+            stopWatch.Start();
+
+            #region Code Section
             List<elementLocation> allElements = new List<elementLocation>();
 
             int widthOfArray = inputMatrix.GetLength(0);
@@ -141,7 +148,9 @@ namespace MatrixGroupIdentifier
                     e = 0;
                 }
             }
+            #endregion Code Section
 
+            stopWatch.Stop();
             Console.WriteLine("Number of Groups: "+groupsList.Count);
             Console.WriteLine("Groups Are: \nX Y");
             foreach(var l in groupsList)
@@ -153,7 +162,7 @@ namespace MatrixGroupIdentifier
                     
                 }
             }
-
+            Console.Write("\n\n Time Taken:  "+ stopWatch.Elapsed.TotalSeconds+" sec");
             Console.ReadLine();
         }
 
