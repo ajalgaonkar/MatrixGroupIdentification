@@ -22,9 +22,12 @@ namespace MatrixGroupIdentifier
     {
         static void Main(string[] args)
         {
-            int[,] inputMatrix = new int[,] {{1,1,0,0,1},
-                                             {1,0,0,1,0},
-                                             {1,1,1,1,0}};
+            string inputText = System.IO.File.ReadAllText(@"Input.txt");
+            inputText = inputText.Replace("\r", "");
+            int[,] inputMatrix = GetIntegerArray(inputText);
+            //int[,] inputMatrix = new int[,] {{1,1,0,0,1},
+            //                                 {1,0,1,1,0},
+            //                                 {1,1,0,1,0}};
             List<elementLocation> allElements = new List<elementLocation>();
 
             int widthOfArray = inputMatrix.GetLength(0);
@@ -182,6 +185,30 @@ namespace MatrixGroupIdentifier
             }
 
             return allAdjecentCells;
+        }
+
+        public static int[,] GetIntegerArray(string inputFile)
+        {
+
+
+            string[] inputSplit = inputFile.Split('\n');
+
+            int[,] integerInput = new int[inputSplit.Count(), inputSplit[0].Length];
+
+            int i = 0;
+            foreach (string split in inputSplit)
+            {
+                char[] charSplit = split.ToCharArray();
+                int j = 0;
+                foreach (char c in charSplit)
+                {
+                    integerInput[i, j] = (int)Char.GetNumericValue(c);
+                    j++;
+                }
+                i++;
+            }
+
+            return integerInput;
         }
     }
 }
